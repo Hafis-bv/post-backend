@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import { logger } from "./middleware/logger";
 import { errorMiddleware } from "./middleware/errorMiddleware";
 import { postRouter } from "./routes/posts";
+import cors from "cors";
 
 // load envs
 dotenv.config();
@@ -16,6 +17,12 @@ connectDB();
 const app = express();
 
 // middlewares
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(logger);
@@ -31,5 +38,5 @@ app.get("/", (req, res) => {
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
-  console.log("server has started");
+  console.log(`Sever is running on http://localhost:${process.env.PORT}`);
 });

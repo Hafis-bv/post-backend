@@ -7,7 +7,7 @@ import { PostBody } from "../types/post";
 export async function getAllPosts(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   const { limit } = req.query;
 
@@ -28,7 +28,7 @@ export async function getAllPosts(
 export async function getSinglePost(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const { id } = req.params;
@@ -46,17 +46,18 @@ export async function getSinglePost(
     return res.status(200).json(post);
   } catch (e) {
     console.error(e);
-    next(new AppError("Server error", 500)); //ошибка сервера?
+    next(new AppError("Server error", 500));
   }
 }
 
 export async function createPost(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const { image, title, description } = req.body as PostBody;
+    const authorId = req.user?._id;
 
     if (!title || !description || !image) {
       return next(new AppError("All fields are required", 400));
@@ -65,6 +66,7 @@ export async function createPost(
       image,
       title,
       description,
+      author: authorId,
     });
 
     return res.status(201).json({
@@ -80,7 +82,7 @@ export async function createPost(
 export async function deletePost(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const { id } = req.params;
@@ -102,7 +104,7 @@ export async function deletePost(
 export async function updatePost(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const { id } = req.params;
@@ -125,7 +127,7 @@ export async function updatePost(
       {
         new: true, // возвращает обновлённый документ
         runValidators: true, // запускает валидации схемы ..... это че значит
-      }
+      },
     );
 
     if (!post) {

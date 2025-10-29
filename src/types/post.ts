@@ -1,9 +1,9 @@
-import { User } from "../models/User";
+import { IUser } from "../models/User";
 
 export interface PostBody {
   title: string;
   image: string;
   description: string;
-  author: User;
+  author: IUser;
   limit: string;
 }
