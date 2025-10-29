@@ -3,7 +3,7 @@ import { JwtPayload, RegisterRequestBody } from "../types/auth";
 import { User } from "../models/User";
 import bcrypt from "bcryptjs";
 import { generateTokenAndSetCookies } from "../utils/generateTokenAndSetCookies";
-import { AppError } from "../utils/appError";
+import { AppError } from "../utils/AppError";
 import jwt from "jsonwebtoken";
 
 export async function register(

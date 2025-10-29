@@ -5,6 +5,7 @@ import { authRouter } from "./routes/auth";
 import cookieParser from "cookie-parser";
 import { logger } from "./middleware/logger";
 import { errorMiddleware } from "./middleware/errorMiddleware";
+import { postRouter } from "./routes/posts";
 
 // load envs
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(logger);
 
 // routes
 app.use("/auth", authRouter);
+app.use("/posts", postRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello world from auth api");
