@@ -1,11 +1,11 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
-import { User } from "./User";
+import { IUser } from "./User";
 
-interface Post extends Document {
+interface IPost extends Document {
   title: string;
   image: string;
   description: string;
-  author: Types.ObjectId | User;
+  author: Types.ObjectId | IUser;
   createdAt: Date;
 }
 
@@ -32,4 +32,4 @@ const postSchema = new Schema({
   },
 });
 
-export const Post = mongoose.model<Post>("Post", postSchema);
+export const Post = mongoose.model<IPost>("Post", postSchema);
